@@ -197,18 +197,6 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;}
 #navbar:not(.scrolled) .nav-link::after{background:var(--gold);}
 #navbar:not(.scrolled) .nav-btn-wrap .btn-gold{background:var(--gold);}
 #navbar:not(.scrolled) .hamburger span{background:var(--white);}
-#navPhone{display:none;}
-@media(min-width:769px){
-  #navPhone{display:none !important;}
-}
-@media(max-width:768px){
-  #navPhone{
-    display:inline-flex !important;
-    padding:6px 12px;
-    font-size:.75rem;
-  }
-}
-
 /* Mobile Nav */
 .mobile-menu{
   position:fixed;top:70px;left:0;right:0;bottom:0;z-index:850;
@@ -238,6 +226,14 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;}
   display:grid;grid-template-columns:1fr 1fr;
   padding-top:70px;overflow:hidden;
 }
+#hero-video{ /* FIX */
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:0;
+}
+.hero-video-overlay{ /* FIX */
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(135deg,rgba(0,26,20,.75) 0%,rgba(0,53,44,.65) 45%,rgba(2,78,65,.7) 100%);
+}
 #hero-canvas{
   position:absolute;inset:0;pointer-events:none;z-index:0;
 }
@@ -245,6 +241,14 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;}
   position:relative;z-index:10;
   display:flex;flex-direction:column;justify-content:center;
   padding:80px 5% 80px 8%;
+}
+.hero-content-box{ /* FIX - opaque box for text */
+  background:rgba(0,26,20,.85);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(200,151,58,.2);
+  border-radius:var(--radius-lg);
+  padding:40px 44px;
+  max-width:560px;
 }
 .hero-badge{
   display:inline-flex;align-items:center;gap:8px;width:fit-content;
@@ -279,7 +283,8 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;}
 .stat-lbl{font-size:.78rem;color:rgba(255,255,255,.45);margin-top:2px;font-weight:500;}
 
 .hero-right{
-  position:relative;z-index:5;
+  position:relative;z-index:10; /* FIX - above video overlay */
+}
   display:flex;align-items:center;justify-content:center;
   padding:80px 40px;
 }
@@ -873,7 +878,7 @@ footer{background:#060f0d;padding:64px 0 0;}
    BACK TO TOP
 ═══════════════════════════════ */
 #back-top{
-  position:fixed;bottom:28px;left:28px;z-index:800;
+  position:fixed;bottom:28px;right:28px;z-index:800; /* FIX */
   width:44px;height:44px;border-radius:50%;
   background:var(--teal-900);color:var(--white);
   display:flex;align-items:center;justify-content:center;
@@ -883,6 +888,22 @@ footer{background:#060f0d;padding:64px 0 0;}
 }
 #back-top.visible{opacity:1;transform:translateY(0);pointer-events:all;}
 #back-top:hover{background:var(--teal-800);}
+
+/* ═══════════════════════════════
+   FLOATING CALL BUTTON
+═══════════════════════════════ */
+#float-call{ /* FIX */
+  position:fixed;bottom:28px;left:28px;z-index:800;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--gold);color:var(--teal-900);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;
+  box-shadow:0 6px 24px rgba(200,151,58,.45);
+  transition:transform .25s,box-shadow .25s;
+  text-decoration:none;
+}
+#float-call:hover{transform:scale(1.1);box-shadow:0 10px 32px rgba(200,151,58,.55);}
+#float-call svg{width:26px;height:26px;stroke:currentColor;stroke-width:2;fill:none;}
 
 /* ═══════════════════════════════
    ANIMATIONS
@@ -918,6 +939,8 @@ footer{background:#060f0d;padding:64px 0 0;}
 @media(max-width:768px){
   .nav-links,.nav-btn-wrap{display:none;}
   .hamburger{display:flex;}
+  .hero-content-box{padding:28px 24px;max-width:100%;} /* FIX */
+  .hero-right{display:none;} /* FIX - hide right column on mobile */
   .spec-grid{grid-template-columns:repeat(2, 1fr);}
   .doc-grid{grid-template-columns:1fr;}
   .trust-inner{gap:16px;}
@@ -955,17 +978,13 @@ footer{background:#060f0d;padding:64px 0 0;}
     flex:0 0 auto;
     gap:6px !important;
   }
-  #navPhone{
-    padding:5px 10px !important;
-    font-size:.7rem !important;
-    white-space:nowrap;
-  }
   .modal-box{max-height:85vh;border-radius:var(--radius-lg);}
   .modal-title{font-size:1.2rem;}
   .modal-body{padding:16px 20px 20px;}
 }
 @media(max-width:480px){
   .hero-left{padding:60px 6% 60px;}
+  .hero-content-box{padding:24px 20px;max-width:100%;} /* FIX */
   .section-pad{padding:72px 0;}
   .hero-stats{flex-wrap:wrap;gap:24px;}
   .why-grid{grid-template-columns:1fr;}
@@ -992,7 +1011,6 @@ footer{background:#060f0d;padding:64px 0 0;}
       <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
     </ul>
     <div class="nav-btn-wrap" style="display:flex;align-items:center;gap:14px;">
-      <a href="tel:+919876543210" class="btn btn-outline" id="navPhone">📞 Call</a>
       <button class="btn btn-gold btn-sm" onclick="openModal()">Book</button>
     </div>
     <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
@@ -1022,80 +1040,81 @@ footer{background:#060f0d;padding:64px 0 0;}
 
 <!-- ═══════ HERO ═══════ -->
 <section class="hero" id="home">
-  <canvas id="hero-canvas"></canvas>
+  <video id="hero-video" autoplay muted loop playsinline> <!-- FIX -->
+    <source src="14772136_1080_1920_30fps.mp4" type="video/mp4"/>
+  </video>
+  <div class="hero-video-overlay"></div>
 
   <div class="hero-left">
-    <div class="hero-badge">
-      <span class="hero-badge-dot"></span>
-      Trusted Care · Aliganj, Lucknow
-    </div>
-    <h1 class="hero-title">
-      Advanced Care,<br/><em>Close to Home.</em>
-    </h1>
-    <p class="hero-subtitle">
-      Vaishno Multispeciality Clinic brings together seasoned specialists across 15+ disciplines — delivering expert, compassionate healthcare to the families of Lucknow.
-    </p>
-    <div class="hero-actions">
-      <button class="btn btn-gold btn-lg" onclick="openModal()">
-        📅 Book Appointment
-      </button>
-      <button class="btn btn-ghost btn-lg" onclick="scrollTo('doctors')">
-        Meet Our Doctors →
-      </button>
-    </div>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-val">50K+</div>
-        <div class="stat-lbl">Patients Served</div>
+    <div class="hero-content-box"> <!-- FIX -->
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Trusted Care · Aliganj, Lucknow
       </div>
-      <div>
-        <div class="stat-val">15+</div>
-        <div class="stat-lbl">Specialities</div>
+      <h1 class="hero-title">
+        Advanced Care,<br/><em>Close to Home.</em>
+      </h1>
+      <p class="hero-subtitle">
+        Vaishno Multispeciality Clinic brings together seasoned specialists across 15+ disciplines — delivering expert, compassionate healthcare to the families of Lucknow.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-gold btn-lg" onclick="openModal()">
+          📅 Book Appointment
+        </button>
+        <button class="btn btn-ghost btn-lg" onclick="scrollTo('doctors')">
+          Meet Our Doctors →
+        </button>
       </div>
-      <div>
-        <div class="stat-val">20+</div>
-        <div class="stat-lbl">Expert Doctors</div>
-      </div>
-      <div>
-        <div class="stat-val">24/7</div>
-        <div class="stat-lbl">Emergency Care</div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-val">50K+</div>
+          <div class="stat-lbl">Patients Served</div>
+        </div>
+        <div>
+          <div class="stat-val">15+</div>
+          <div class="stat-lbl">Specialities</div>
+        </div>
+        <div>
+          <div class="stat-val">20+</div>
+          <div class="stat-lbl">Expert Doctors</div>
+        </div>
+        <div>
+          <div class="stat-val">24/7</div>
+          <div class="stat-lbl">Emergency Care</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="hero-right">
-    <div class="card-3d-scene" id="cardScene">
-      <div class="card-3d" id="card3d">
-        <div class="card-3d-title">Quick Appointment</div>
-        <div class="card-3d-sub">Book your slot in under 60 seconds</div>
-        <div class="card-field">
-          <label class="card-label">Select Speciality</label>
-          <select class="card-select">
-            <option>General Medicine</option>
-            <option>Cardiology</option>
-            <option>Orthopaedics</option>
-            <option>Gynaecology</option>
-            <option>Paediatrics</option>
-            <option>Neurology</option>
-            <option>Dermatology</option>
-            <option>ENT</option>
-            <option>Dental</option>
-            <option>Ophthalmology</option>
-          </select>
+  <div class="hero-right"> <!-- FIX -->
+    <div class="hero-content-box">
+      <h2 style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.8rem;margin-bottom:12px;">Book Your Appointment</h2>
+      <p style="color:rgba(255,255,255,.7);font-size:.9rem;margin-bottom:24px;">Schedule a consultation with our specialists. We'll confirm your slot within 30 minutes.</p>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(200,151,58,.15);display:flex;align-items:center;justify-content:center;color:var(--gold);">📞</div>
+          <div>
+            <div style="color:var(--white);font-weight:600;">Call Us</div>
+            <div style="color:rgba(255,255,255,.6);font-size:.8rem;">+91 98765 43210</div>
+          </div>
         </div>
-        <div class="card-field">
-          <label class="card-label">Preferred Date</label>
-          <input type="date" class="card-input" id="heroDate"/>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(200,151,58,.15);display:flex;align-items:center;justify-content:center;color:var(--gold);">📍</div>
+          <div>
+            <div style="color:var(--white);font-weight:600;">Visit Us</div>
+            <div style="color:rgba(255,255,255,.6);font-size:.8rem;">Sector K, Aliganj, Lucknow</div>
+          </div>
         </div>
-        <div class="card-field">
-          <label class="card-label">Mobile Number</label>
-          <input type="tel" class="card-input" placeholder="+91 98765 43210" id="heroPhone"/>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(200,151,58,.15);display:flex;align-items:center;justify-content:center;color:var(--gold);">⏰</div>
+          <div>
+            <div style="color:var(--white);font-weight:600;">Opening Hours</div>
+            <div style="color:rgba(255,255,255,.6);font-size:.8rem;">Mon-Sat: 9AM-8PM, Sun: 10AM-2PM</div>
+          </div>
         </div>
-        <button class="card-btn" onclick="heroBooking()">Confirm Booking →</button>
-        <div class="card-avail">
-          <div class="avail-dot"></div>
-          Next slot available: Today, 4:30 PM
-        </div>
+        <button class="btn btn-gold btn-lg btn-full" onclick="openModal()" style="margin-top:8px;">
+          📅 Book Online Now
+        </button>
       </div>
     </div>
   </div>
@@ -1779,94 +1798,232 @@ footer{background:#060f0d;padding:64px 0 0;}
 <!-- ═══════ BACK TO TOP ═══════ -->
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
+<!-- ═══════ FLOATING CALL BUTTON ═══════ --> <!-- FIX -->
+<a id="float-call" href="tel:+919876543210" aria-label="Call us">
+  <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+</a>
+
 
 <!-- ═══════════════════════════════
      JAVASCRIPT
 ═══════════════════════════════ -->
 <script>
-/* ── THREE.JS HERO CANVAS ── */
+/* ── THREE.JS HERO — GIANT DIAGONAL SPINNING DNA ── */
 (function(){
-  const canvas = document.getElementById('hero-canvas');
-  if(!canvas || typeof THREE === 'undefined') return;
-  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
-  camera.position.z = 5;
+  const canvas=document.getElementById('hero-canvas');
+  if(!canvas||typeof THREE==='undefined')return;
 
-  // Particles
-  const N = 1800;
-  const geo = new THREE.BufferGeometry();
-  const pos = new Float32Array(N*3), col = new Float32Array(N*3);
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setClearColor(0x000000,0);
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(55,1,0.1,2000);
+  camera.position.set(0,0,32);
+
+  const mouse={x:0,y:0},target={x:0,y:0};
+  window.addEventListener('mousemove',e=>{mouse.x=(e.clientX/innerWidth-.5)*2;mouse.y=-(e.clientY/innerHeight-.5)*2;});
+  window.addEventListener('touchmove',e=>{const u=e.touches[0];mouse.x=(u.clientX/innerWidth-.5)*2;mouse.y=-(u.clientY/innerHeight-.5)*2;},{passive:true});
+
+  const dnaGroup=new THREE.Group();
+  scene.add(dnaGroup);
+  const STEPS=120,HEIGHT=52,RADIUS=4.5,TURNS=5;
+  const spheres1=[],spheres2=[];
+
+  for(let i=0;i<STEPS;i++){
+    const f=i/STEPS,angle=f*Math.PI*2*TURNS,y=f*HEIGHT-HEIGHT/2;
+    const x1=Math.cos(angle)*RADIUS,z1=Math.sin(angle)*RADIUS;
+    const x2=Math.cos(angle+Math.PI)*RADIUS,z2=Math.sin(angle+Math.PI)*RADIUS;
+    const dist=Math.abs(f-.5),nodeSize=.28-.1*dist;
+    const sGeo=new THREE.SphereGeometry(nodeSize,10,10);
+    const s1=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({color:0x4a9e8e,transparent:true,opacity:.95}));
+    s1.position.set(x1,y,z1);dnaGroup.add(s1);spheres1.push({m:s1,f});
+    const s2=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({color:0xc8973a,transparent:true,opacity:.95}));
+    s2.position.set(x2,y,z2);dnaGroup.add(s2);spheres2.push({m:s2,f});
+    if(i%4===0){
+      const bGeo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x1,y,z1),new THREE.Vector3(x2,y,z2)]);
+      dnaGroup.add(new THREE.Line(bGeo,new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.18})));
+    }
+  }
+
+  const pts1=[],pts2=[];
+  for(let i=0;i<=STEPS;i++){
+    const f=i/STEPS,a=f*Math.PI*2*TURNS,y=f*HEIGHT-HEIGHT/2;
+    pts1.push(new THREE.Vector3(Math.cos(a)*RADIUS,y,Math.sin(a)*RADIUS));
+    pts2.push(new THREE.Vector3(Math.cos(a+Math.PI)*RADIUS,y,Math.sin(a+Math.PI)*RADIUS));
+  }
+  dnaGroup.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts1),300,.07,8,false),new THREE.MeshBasicMaterial({color:0x29695b,transparent:true,opacity:.55})));
+  dnaGroup.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts2),300,.07,8,false),new THREE.MeshBasicMaterial({color:0xb8860b,transparent:true,opacity:.55})));
+  dnaGroup.rotation.z=0.42;
+  dnaGroup.rotation.x=0.18;
+  dnaGroup.position.set(3,0,-2);
+
+  const N=1600,pPos=new Float32Array(N*3),pCol=new Float32Array(N*3);
   for(let i=0;i<N;i++){
-    pos[i*3]   = (Math.random()-.5)*22;
-    pos[i*3+1] = (Math.random()-.5)*22;
-    pos[i*3+2] = (Math.random()-.5)*12;
-    const g = Math.random() > .7;
-    col[i*3]   = g ? .79 : .16; col[i*3+1] = g ? .6 : .41; col[i*3+2] = g ? .23 : .36;
+    pPos[i*3]=(Math.random()-.5)*60;pPos[i*3+1]=(Math.random()-.5)*40;pPos[i*3+2]=(Math.random()-.5)*25;
+    const g=Math.random()>.68;pCol[i*3]=g?.79:.15;pCol[i*3+1]=g?.59:.48;pCol[i*3+2]=g?.22:.36;
   }
-  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-  geo.setAttribute('color',   new THREE.BufferAttribute(col,3));
-  const mat = new THREE.PointsMaterial({size:.065,vertexColors:true,transparent:true,opacity:.75});
-  const pts = new THREE.Points(geo,mat);
-  scene.add(pts);
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.07,vertexColors:true,transparent:true,opacity:.6}));
+  scene.add(particles);
 
-  // Torus
-  const tor = new THREE.Mesh(
-    new THREE.TorusGeometry(2.4,.55,16,60),
-    new THREE.MeshBasicMaterial({color:0x29695b,wireframe:true,transparent:true,opacity:.1})
-  );
-  tor.position.set(3.5,-.5,-3); scene.add(tor);
-
-  // Icosahedron
-  const ico = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(1.1,1),
-    new THREE.MeshBasicMaterial({color:0xc8973a,wireframe:true,transparent:true,opacity:.13})
-  );
-  ico.position.set(-4.5,2,-2); scene.add(ico);
-
-  // Ring
-  const ring = new THREE.Mesh(
-    new THREE.TorusGeometry(1.6,.04,8,80),
-    new THREE.MeshBasicMaterial({color:0xc8973a,transparent:true,opacity:.2})
-  );
-  ring.position.set(0,0,-1); scene.add(ring);
-
-  // Octahedron
-  const oct = new THREE.Mesh(
-    new THREE.OctahedronGeometry(1.2,0),
-    new THREE.MeshBasicMaterial({color:0x4a8f7e,wireframe:true,transparent:true,opacity:.15})
-  );
-  oct.position.set(-2,-2.5,-2); scene.add(oct);
-
-  let mouse = {x:0,y:0};
-  document.addEventListener('mousemove',e=>{
-    mouse.x = (e.clientX/window.innerWidth-.5)*2;
-    mouse.y = -(e.clientY/window.innerHeight-.5)*2;
+  const ringGroup=new THREE.Group();
+  scene.add(ringGroup);
+  const rings=[[10,0x29695b,.20,Math.PI/2.2,0.3],[8,0xc8973a,.16,Math.PI/3.5,0.8],[13,0x4a9e8e,.10,Math.PI/5,1.5]].map(([r,c,op,rx,ry])=>{
+    const m=new THREE.Mesh(new THREE.TorusGeometry(r,.04,8,140),new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:op}));
+    m.rotation.x=rx;m.rotation.y=ry;ringGroup.add(m);return m;
   });
+  ringGroup.rotation.z=0.38;
 
-  function resize(){
-    const w = canvas.offsetWidth, h = canvas.offsetHeight;
-    renderer.setSize(w,h,false);
-    camera.aspect = w/h;
-    camera.updateProjectionMatrix();
+  function resize(){const w=canvas.offsetWidth,h=canvas.offsetHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+  resize();window.addEventListener('resize',resize);
+
+  let t=0;
+  (function loop(){
+    requestAnimationFrame(loop);t+=.006;
+    target.x+=(mouse.x-target.x)*.035;target.y+=(mouse.y-target.y)*.035;
+    dnaGroup.rotation.y=t*.55;
+    dnaGroup.rotation.z=0.42+Math.sin(t*.12)*.04;
+    dnaGroup.position.y=Math.sin(t*.3)*.6;
+    spheres1.forEach(s=>{s.m.material.opacity=.55+.4*Math.sin(t*1.8+s.f*Math.PI*6);});
+    spheres2.forEach(s=>{s.m.material.opacity=.55+.4*Math.sin(t*1.8+s.f*Math.PI*6+Math.PI);});
+    ringGroup.rotation.y=t*.08+target.x*.18;
+    ringGroup.rotation.x=target.y*.1;
+    rings[0].rotation.z+=.008;
+    rings[1].rotation.z-=.006;
+    rings[2].rotation.y+=.004;
+    particles.rotation.y=t*.012+target.x*.04;
+    particles.rotation.x=t*.008+target.y*.03;
+    camera.position.x+=(target.x*2-camera.position.x)*.04;
+    camera.position.y+=(target.y*1.2-camera.position.y)*.04;
+    camera.lookAt(0,0,0);
+    renderer.render(scene,camera);
+  })();
+})();
+(function(){
+  const canvas=document.getElementById('hero-canvas');
+  if(!canvas||typeof THREE==='undefined')return;
+
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setClearColor(0x000000,0);
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,1,0.1,1000);
+  camera.position.set(0,0,18);
+
+  const mouse={x:0,y:0},target={x:0,y:0};
+  window.addEventListener('mousemove',e=>{mouse.x=(e.clientX/innerWidth-.5)*2;mouse.y=-(e.clientY/innerHeight-.5)*2;});
+  window.addEventListener('touchmove',e=>{const t=e.touches[0];mouse.x=(t.clientX/innerWidth-.5)*2;mouse.y=-(t.clientY/innerHeight-.5)*2;},{passive:true});
+
+  /* DNA DOUBLE HELIX */
+  const dnaGroup=new THREE.Group();
+  scene.add(dnaGroup);
+  const STEPS=80,HEIGHT=14,RADIUS=1.8,TURNS=3;
+  const spheres1=[],spheres2=[];
+
+  for(let i=0;i<STEPS;i++){
+    const t=i/STEPS,angle=t*Math.PI*2*TURNS,y=t*HEIGHT-HEIGHT/2;
+    const x1=Math.cos(angle)*RADIUS,z1=Math.sin(angle)*RADIUS;
+    const x2=Math.cos(angle+Math.PI)*RADIUS,z2=Math.sin(angle+Math.PI)*RADIUS;
+    const sGeo=new THREE.SphereGeometry(.12,8,8);
+    const s1=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({color:0x4a9e8e,transparent:true,opacity:.9}));
+    s1.position.set(x1,y,z1);dnaGroup.add(s1);spheres1.push({m:s1,t});
+    const s2=new THREE.Mesh(sGeo,new THREE.MeshBasicMaterial({color:0xc8973a,transparent:true,opacity:.9}));
+    s2.position.set(x2,y,z2);dnaGroup.add(s2);spheres2.push({m:s2,t});
+    if(i%5===0){
+      const bGeo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x1,y,z1),new THREE.Vector3(x2,y,z2)]);
+      dnaGroup.add(new THREE.Line(bGeo,new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.12})));
+    }
   }
-  resize();
-  window.addEventListener('resize', resize);
 
-  let t = 0;
-  (function animate(){
-    requestAnimationFrame(animate);
-    t += .005;
-    pts.rotation.y  = t*.07  + mouse.x*.08;
-    pts.rotation.x  = t*.03  + mouse.y*.04;
-    tor.rotation.x  = t*.35; tor.rotation.y = t*.18;
-    ico.rotation.x  = t*.28; ico.rotation.z = t*.2;
-    ring.rotation.x = t*.45  + mouse.y*.25;
-    ring.rotation.y = t*.25  + mouse.x*.25;
-    oct.rotation.x  = t*.22; oct.rotation.y = t*.3;
-    camera.position.x += (mouse.x*.25 - camera.position.x)*.05;
-    camera.position.y += (mouse.y*.18 - camera.position.y)*.05;
+  const pts1=[],pts2=[];
+  for(let i=0;i<=STEPS;i++){
+    const t=i/STEPS,a=t*Math.PI*2*TURNS,y=t*HEIGHT-HEIGHT/2;
+    pts1.push(new THREE.Vector3(Math.cos(a)*RADIUS,y,Math.sin(a)*RADIUS));
+    pts2.push(new THREE.Vector3(Math.cos(a+Math.PI)*RADIUS,y,Math.sin(a+Math.PI)*RADIUS));
+  }
+  dnaGroup.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts1),200,.035,6,false),new THREE.MeshBasicMaterial({color:0x29695b,transparent:true,opacity:.5})));
+  dnaGroup.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts2),200,.035,6,false),new THREE.MeshBasicMaterial({color:0xb8860b,transparent:true,opacity:.5})));
+  dnaGroup.position.set(5,0,-2);
+  dnaGroup.rotation.z=0.15;
+
+  /* MEDICAL CROSS */
+  const crossGroup=new THREE.Group();
+  scene.add(crossGroup);
+  const cMat=new THREE.MeshBasicMaterial({color:0xc8973a,transparent:true,opacity:.18});
+  const cMatW=new THREE.MeshBasicMaterial({color:0xc8973a,transparent:true,opacity:.35,wireframe:true});
+  [[.4,1.6,.4],[1.6,.4,.4]].forEach(([w,h,d])=>{
+    crossGroup.add(new THREE.Mesh(new THREE.BoxGeometry(w,h,d),cMat));
+    crossGroup.add(new THREE.Mesh(new THREE.BoxGeometry(w,h,d),cMatW));
+  });
+  crossGroup.position.set(-5,1.5,-1);
+
+  /* ORBITING RINGS */
+  const ringGroup=new THREE.Group();
+  scene.add(ringGroup);
+  const rings=[
+    [6.5,0x29695b,.22,Math.PI/2,0],
+    [5.0,0xc8973a,.18,Math.PI/3,.5],
+    [7.5,0x4a9e8e,.12,Math.PI/4,1.2]
+  ].map(([r,c,op,rx,ry])=>{
+    const m=new THREE.Mesh(new THREE.TorusGeometry(r,.025,8,120),new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:op}));
+    m.rotation.x=rx;m.rotation.y=ry;ringGroup.add(m);return m;
+  });
+  ringGroup.position.set(0,0,-4);
+
+  /* PARTICLES */
+  const N=1200,pPos=new Float32Array(N*3),pCol=new Float32Array(N*3);
+  for(let i=0;i<N;i++){
+    pPos[i*3]=(Math.random()-.5)*30;pPos[i*3+1]=(Math.random()-.5)*20;pPos[i*3+2]=(Math.random()-.5)*15;
+    const g=Math.random()>.7;pCol[i*3]=g?.79:.18;pCol[i*3+1]=g?.59:.50;pCol[i*3+2]=g?.22:.38;
+  }
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+  const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:.055,vertexColors:true,transparent:true,opacity:.65}));
+  scene.add(particles);
+
+  /* PULSE SPHERE */
+  const pulseGroup=new THREE.Group();
+  scene.add(pulseGroup);
+  const innerSphere=new THREE.Mesh(new THREE.SphereGeometry(.55,32,32),new THREE.MeshBasicMaterial({color:0x4a9e8e,transparent:true,opacity:.25}));
+  const wireFrame=new THREE.Mesh(new THREE.IcosahedronGeometry(.95,2),new THREE.MeshBasicMaterial({color:0x4a9e8e,transparent:true,opacity:.2,wireframe:true}));
+  pulseGroup.add(innerSphere,new THREE.Mesh(new THREE.SphereGeometry(.85,32,32),new THREE.MeshBasicMaterial({color:0x29695b,transparent:true,opacity:.08})),wireFrame);
+  pulseGroup.position.set(-5,-2,0);
+
+  /* RESIZE */
+  function resize(){const w=canvas.offsetWidth,h=canvas.offsetHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+  resize();window.addEventListener('resize',resize);
+
+  /* ANIMATE */
+  let t=0;
+  (function loop(){
+    requestAnimationFrame(loop);t+=.007;
+    target.x+=(mouse.x-target.x)*.04;target.y+=(mouse.y-target.y)*.04;
+    dnaGroup.rotation.y=t*.18+target.x*.15;
+    dnaGroup.position.y=Math.sin(t*.4)*.4;
+    spheres1.forEach(s=>{s.m.material.opacity=.5+.4*Math.sin(t*2+s.t*Math.PI*4);});
+    spheres2.forEach(s=>{s.m.material.opacity=.5+.4*Math.sin(t*2+s.t*Math.PI*4+Math.PI);});
+    crossGroup.rotation.y=t*.22;
+    crossGroup.rotation.x=Math.sin(t*.3)*.15;
+    crossGroup.position.y=1.5+Math.sin(t*.5)*.5;
+    rings[0].rotation.z=t*.12;
+    rings[1].rotation.z=-t*.09;rings[1].rotation.x=Math.PI/3+Math.sin(t*.2)*.1;
+    rings[2].rotation.y=t*.07;rings[2].rotation.z=t*.05;
+    ringGroup.rotation.y=target.x*.2;ringGroup.rotation.x=target.y*.1;
+    particles.rotation.y=t*.025+target.x*.06;particles.rotation.x=t*.015+target.y*.04;
+    const pulse=.85+.15*Math.sin(t*2.2);
+    pulseGroup.scale.setScalar(pulse);
+    pulseGroup.rotation.y=t*.3;pulseGroup.rotation.x=t*.18;
+    pulseGroup.position.y=-2+Math.cos(t*.6)*.4;
+    innerSphere.material.opacity=.15+.15*Math.sin(t*2.2);
+    wireFrame.material.opacity=.12+.1*Math.sin(t*1.8+1);
+    camera.position.x+=(target.x*1.5-camera.position.x)*.05;
+    camera.position.y+=(target.y*1.0-camera.position.y)*.05;
+    camera.lookAt(0,0,0);
     renderer.render(scene,camera);
   })();
 })();
@@ -1945,11 +2102,9 @@ window.addEventListener('scroll',()=>{
   if(window.scrollY > 60){
     navbar.classList.add('scrolled');
     document.getElementById('back-top').classList.add('visible');
-    document.getElementById('navPhone').style.display='';
   } else {
     navbar.classList.remove('scrolled');
     document.getElementById('back-top').classList.remove('visible');
-    document.getElementById('navPhone').style.display='none';
   }
   // Active link
   let current='home';
