@@ -139,7 +139,7 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;}
    NAV
 ═══════════════════════════════ */
 #navbar{
-  position:fixed;top:0;left:0;right:0;z-index:900;
+  position:fixed;top:0;left:0;width:100%;z-index:900;
   transition:background .3s,box-shadow .3s,padding .3s;
   padding:0;
 }
@@ -153,24 +153,24 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;}
   display:flex;align-items:center;justify-content:space-between;
   height:72px;
 }
-.nav-brand{display:flex;align-items:center;gap:12px;}
+.nav-brand{display:flex;align-items:center;gap:10px;}
 .nav-logo-mark{
-  width:40px;height:40px;border-radius:50%;
+  width:38px;height:38px;border-radius:50%;
   background:var(--teal-900);
   display:flex;align-items:center;justify-content:center;
-  color:var(--gold);font-size:1.1rem;font-weight:700;
+  color:var(--gold);font-size:1rem;font-weight:700;
   font-family:'Cormorant Garamond',serif;
   flex-shrink:0;
 }
 .nav-brand-text{line-height:1.2;}
 .nav-brand-name{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.1rem;font-weight:700;
+  font-size:.95rem;font-weight:700;
   color:var(--teal-900);
 }
 .nav-brand-sub{
-  font-size:.65rem;font-weight:500;
-  color:var(--text-muted);letter-spacing:.08em;
+  font-size:.58rem;font-weight:500;
+  color:var(--text-muted);letter-spacing:.06em;
   text-transform:uppercase;
 }
 .nav-links{display:flex;align-items:center;gap:32px;}
@@ -197,26 +197,37 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;}
 #navbar:not(.scrolled) .nav-link::after{background:var(--gold);}
 #navbar:not(.scrolled) .nav-btn-wrap .btn-gold{background:var(--gold);}
 #navbar:not(.scrolled) .hamburger span{background:var(--white);}
+#navPhone{display:none;}
+@media(min-width:769px){
+  #navPhone{display:none !important;}
+}
+@media(max-width:768px){
+  #navPhone{
+    display:inline-flex !important;
+    padding:6px 12px;
+    font-size:.75rem;
+  }
+}
 
 /* Mobile Nav */
 .mobile-menu{
-  position:fixed;top:72px;left:0;right:0;bottom:0;z-index:850;
+  position:fixed;top:70px;left:0;right:0;bottom:0;z-index:850;
   background:var(--white);
   transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.8,.25,1);
-  padding:32px 7%;overflow-y:auto;
+  padding:24px 7%;overflow-y:auto;
 }
 .mobile-menu.open{transform:translateX(0);}
 .mobile-nav-links{display:flex;flex-direction:column;gap:0;}
 .mobile-nav-link{
-  display:block;padding:16px 0;font-size:1.4rem;
+  display:block;padding:14px 0;font-size:1.25rem;
   font-family:'Cormorant Garamond',serif;font-weight:700;
   color:var(--teal-900);border-bottom:1px solid var(--border-light);
   transition:color .2s,padding-left .2s;
 }
 .mobile-nav-link:hover{color:var(--gold);padding-left:8px;}
-.mobile-nav-cta{margin-top:28px;}
-.mobile-contact-info{margin-top:32px;padding-top:24px;border-top:1px solid var(--border-light);}
-.mobile-contact-info p{font-size:.85rem;color:var(--text-secondary);display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.mobile-nav-cta{margin-top:24px;}
+.mobile-contact-info{margin-top:24px;padding-top:20px;border-top:1px solid var(--border-light);}
+.mobile-contact-info p{font-size:.82rem;color:var(--text-secondary);display:flex;align-items:center;gap:10px;margin-bottom:8px;}
 
 /* ═══════════════════════════════
    HERO
@@ -225,7 +236,7 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;}
   position:relative;min-height:100vh;
   background:linear-gradient(135deg,var(--teal-950) 0%,var(--teal-900) 45%,var(--teal-800) 100%);
   display:grid;grid-template-columns:1fr 1fr;
-  padding-top:72px;overflow:hidden;
+  padding-top:70px;overflow:hidden;
 }
 #hero-canvas{
   position:absolute;inset:0;pointer-events:none;z-index:0;
@@ -327,28 +338,42 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;}
 ═══════════════════════════════ */
 .trust-bar{
   background:var(--white);border-bottom:1px solid var(--border-light);
-  padding:18px 0;
+  padding:14px 0;
 }
 .trust-inner{
   max-width:1240px;margin:0 auto;padding:0 5%;
   display:flex;align-items:center;justify-content:center;
-  gap:40px;flex-wrap:wrap;
+  gap:32px;flex-wrap:wrap;
 }
 .trust-item{
-  display:flex;align-items:center;gap:10px;
-  font-size:.82rem;font-weight:600;color:var(--text-secondary);
+  display:flex;align-items:center;gap:8px;
+  font-size:.78rem;font-weight:600;color:var(--text-secondary);
 }
-.trust-icon{font-size:1.1rem;}
+.trust-icon{
+  width:28px;height:28px;border-radius:6px;
+  background:var(--teal-100);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.trust-icon svg{width:16px;height:16px;stroke:var(--teal-700);stroke-width:2;fill:none;}
 .trust-divider{width:1px;height:20px;background:var(--border-mid);}
+
+@media(max-width:768px){
+  .trust-inner{gap:16px;}
+  .trust-item{font-size:.72rem;gap:6px;}
+  .trust-icon{width:26px;height:26px;border-radius:5px;}
+  .trust-icon svg{width:14px;height:14px;}
+}
 
 /* ═══════════════════════════════
    SPECIALITIES
 ═══════════════════════════════ */
-.specialities-section{background:var(--cream);padding:96px 0;}
+.specialities-section{background:var(--cream);padding:60px 0 80px;}
+.specialities-section .section-head{margin-bottom:40px;}
 .spec-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:20px;margin-top:56px;
+  gap:20px;margin-top:0;
 }
 .spec-card{
   background:var(--white);
@@ -376,8 +401,18 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:700;}
   width:52px;height:52px;border-radius:12px;
   background:var(--teal-100);
   display:flex;align-items:center;justify-content:center;
-  font-size:1.4rem;margin-bottom:18px;
+  font-size:1.6rem;margin-bottom:18px;
   transition:transform .3s,background .3s;
+  line-height:1;
+  flex-shrink:0;
+}
+
+@media(max-width:768px){
+  .spec-icon-wrap{
+    width:48px;
+    height:48px;
+    font-size:1.4rem;
+  }
 }
 .spec-card:hover .spec-icon-wrap{transform:translateY(-4px) scale(1.08);background:var(--teal-900);}
 .spec-card:hover .spec-icon-wrap{filter:none;}
@@ -774,20 +809,23 @@ footer{background:#060f0d;padding:64px 0 0;}
 .modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
 .modal-header{
   background:linear-gradient(135deg,var(--teal-900),var(--teal-800));
-  padding:28px 32px 24px;
+  padding:20px 24px;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--white);}
-.modal-sub{font-size:.83rem;color:rgba(255,255,255,.6);margin-top:4px;}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--white);padding-right:40px;}
+.modal-sub{font-size:.8rem;color:rgba(255,255,255,.6);margin-top:2px;}
 .modal-close{
-  position:absolute;top:16px;right:16px;
-  background:rgba(255,255,255,.12);border:none;border-radius:50%;
-  width:34px;height:34px;
+  position:absolute;top:14px;right:14px;
+  background:rgba(255,255,255,.2);border:none;border-radius:50%;
+  width:32px;height:32px;
   display:flex;align-items:center;justify-content:center;
-  color:var(--white);font-size:1.1rem;cursor:pointer;
+  color:var(--white);font-size:1rem;cursor:pointer;
   transition:background .2s;
 }
-.modal-close:hover{background:rgba(255,255,255,.22);}
-.modal-body{padding:28px 32px 32px;}
+.modal-close:hover{background:rgba(255,255,255,.35);}
+.modal-body{padding:20px 24px 24px;}
 .modal-field{margin-bottom:18px;}
 .modal-label{display:block;font-size:.68rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
 .modal-input,.modal-select{
@@ -880,9 +918,9 @@ footer{background:#060f0d;padding:64px 0 0;}
 @media(max-width:768px){
   .nav-links,.nav-btn-wrap{display:none;}
   .hamburger{display:flex;}
-  .spec-grid{grid-template-columns:1fr;}
+  .spec-grid{grid-template-columns:repeat(2, 1fr);}
   .doc-grid{grid-template-columns:1fr;}
-  .trust-inner{gap:20px;}
+  .trust-inner{gap:16px;}
   .trust-divider{display:none;}
   .form-grid{grid-template-columns:1fr;}
   .modal-row{grid-template-columns:1fr;}
@@ -892,6 +930,39 @@ footer{background:#060f0d;padding:64px 0 0;}
   .appt-form-wrap{padding:36px 28px;}
   .appt-sidebar{padding:40px 32px;}
   .stats-grid{grid-template-columns:1fr 1fr;}
+  .specialities-section{padding:48px 0 64px;}
+  .specialities-section .section-pad{padding:48px 0 64px;}
+  .nav-inner{
+    height:70px;
+    padding:0 4%;
+    justify-content:space-between;
+  }
+  .nav-brand{
+    flex:1;
+    justify-content:flex-start;
+    max-width:calc(100% - 50px);
+  }
+  .nav-brand-text{overflow:hidden;}
+  .nav-logo-mark{width:36px;height:36px;font-size:.9rem;flex-shrink:0;}
+  .nav-brand-name{font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .nav-brand-sub{font-size:.52rem;}
+  .hamburger{
+    flex:0 0 auto;
+    padding:4px;
+    margin-left:8px;
+  }
+  .nav-btn-wrap{
+    flex:0 0 auto;
+    gap:6px !important;
+  }
+  #navPhone{
+    padding:5px 10px !important;
+    font-size:.7rem !important;
+    white-space:nowrap;
+  }
+  .modal-box{max-height:85vh;border-radius:var(--radius-lg);}
+  .modal-title{font-size:1.2rem;}
+  .modal-body{padding:16px 20px 20px;}
 }
 @media(max-width:480px){
   .hero-left{padding:60px 6% 60px;}
@@ -921,8 +992,8 @@ footer{background:#060f0d;padding:64px 0 0;}
       <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
     </ul>
     <div class="nav-btn-wrap" style="display:flex;align-items:center;gap:14px;">
-      <a href="tel:+919876543210" class="btn btn-outline btn-sm" style="display:none;" id="navPhone">📞 Call Us</a>
-      <button class="btn btn-gold btn-sm" onclick="openModal()">Book Appointment</button>
+      <a href="tel:+919876543210" class="btn btn-outline" id="navPhone">📞 Call</a>
+      <button class="btn btn-gold btn-sm" onclick="openModal()">Book</button>
     </div>
     <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1033,17 +1104,35 @@ footer{background:#060f0d;padding:64px 0 0;}
 <!-- ═══════ TRUST BAR ═══════ -->
 <div class="trust-bar">
   <div class="trust-inner">
-    <div class="trust-item"><span class="trust-icon">✅</span> NABH Accredited</div>
+    <div class="trust-item">
+      <span class="trust-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></span>
+      NABH Accredited
+    </div>
     <div class="trust-divider"></div>
-    <div class="trust-item"><span class="trust-icon">🔬</span> In-House Diagnostics</div>
+    <div class="trust-item">
+      <span class="trust-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/><path d="M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg></span>
+      In-House Diagnostics
+    </div>
     <div class="trust-divider"></div>
-    <div class="trust-item"><span class="trust-icon">🚑</span> 24/7 Emergency</div>
+    <div class="trust-item">
+      <span class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+      24/7 Emergency
+    </div>
     <div class="trust-divider"></div>
-    <div class="trust-item"><span class="trust-icon">💊</span> On-Site Pharmacy</div>
+    <div class="trust-item">
+      <span class="trust-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z"/><path d="M12 8v8m-4-4h8"/></svg></span>
+      On-Site Pharmacy
+    </div>
     <div class="trust-divider"></div>
-    <div class="trust-item"><span class="trust-icon">🅿️</span> Free Parking</div>
+    <div class="trust-item">
+      <span class="trust-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
+      Free Parking
+    </div>
     <div class="trust-divider"></div>
-    <div class="trust-item"><span class="trust-icon">💳</span> Cashless Insurance</div>
+    <div class="trust-item">
+      <span class="trust-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span>
+      Cashless Insurance
+    </div>
   </div>
 </div>
 
